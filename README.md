@@ -12,6 +12,8 @@ Open http://localhost:8000.
 
 ## Deployment
 
-This repository is configured for GitHub Pages from the `main` branch and root directory.
+This repository is configured for GitHub Pages using the `main` branch and the GitHub Actions deployment workflow.
 
 Repository: https://github.com/Quavyl1/atrsengneering
+
+Last deployment trigger: 2026-11-20
