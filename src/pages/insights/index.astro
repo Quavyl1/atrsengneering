@@ -1,0 +1,4 @@
+---
+import Base from '../../layouts/Base.astro'; import {insights} from '../../data/content';
+---
+<Base title="Insights"><section class="hero"><div class="container"><span class="eyebrow">Insights</span><h1>Practical thinking on traffic, safety and mobility.</h1><p>Launch article structure is in place; final editorial copy remains subject to ATRS approval.</p></div></section><section class="section"><div class="container"><div class="grid">{insights.map(a=><article class="card"><span class="pill">Insight</span><h2 style="font-size:1.6rem">{a.title}</h2><p>{a.excerpt}</p><a class="link" href={'/insights/'+a.slug+'/'}>Read article →</a></article>)}</div></div></section></Base>

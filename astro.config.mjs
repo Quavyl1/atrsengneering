@@ -1,0 +1,1 @@
+import { defineConfig } from 'astro/config'; export default defineConfig({output:'static',site:'https://atrseng.co.ke',build:{format:'directory'}});

@@ -1,0 +1,4 @@
+---
+import Base from '../../layouts/Base.astro'; import {insights} from '../../data/content'; export function getStaticPaths(){return insights.map(article=>({params:{slug:article.slug},props:{article}}))}; const {article}=Astro.props;
+---
+<Base title={article.title} description={article.excerpt}><section class="hero"><div class="container"><p><a href="/insights/">Insights</a> / {article.title}</p><span class="eyebrow">Insight</span><h1>{article.title}</h1><p>{article.excerpt}</p></div></section><section class="section"><div class="container prose"><span class="tag">Draft article</span><h2>Article content</h2><p>This launch article is part of the approved site structure. The final editorial copy is to be drafted or supplied and approved by ATRS before publication.</p><div class="pending"><strong>Content gate:</strong> do not treat this page as a published ATRS position until the article has been reviewed and approved.</div></div></section></Base>
