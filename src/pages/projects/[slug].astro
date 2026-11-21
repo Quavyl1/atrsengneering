@@ -1,11 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
-import {projects} from '../../data/content';
+import {projects,services} from '../../data/content';
 export function getStaticPaths(){return projects.map(project=>({params:{slug:project.slug},props:{project}}))}
 const {project}=Astro.props;
 const related=projects.filter(p=>p.slug!==project.slug && p.services.some(s=>project.services.includes(s))).slice(0,3);
+const projectServices=services.filter(s=>project.services.includes(s.slug));
+const projectSchema={'@context':'https://schema.org','@type':'CreativeWork',name:project.title,description:project.seo.description,creator:{'@type':'Organization',name:'ATRS Engineering Consultants Limited',url:'https://atrseng.co.ke'},about:projectServices.map(s=>({'@type':'Thing',name:s.title})),locationCreated:{'@type':'Place',name:project.country},keywords:[project.seo.primaryKeyword,...project.seo.secondaryKeywords],url:new URL(Astro.url.pathname,'https://atrseng.co.ke').href,...(project.financier?{funder:{'@type':'Organization',name:project.financier}}:{})};
 ---
-<Base title={project.title} description={project.seo.description}>
+<Base title={project.title} description={project.seo.description} ogType="article" schema={projectSchema}>
 <section class="hero"><div class="container"><p><a href="/projects/">Projects</a> / {project.title}</p><span class="eyebrow">{project.category}</span><h1>{project.title}</h1><p>{project.summary}</p></div></section>
 <section class="section"><div class="container">
 <div class="factgrid">
@@ -19,6 +21,7 @@ const related=projects.filter(p=>p.slug!==project.slug && p.services.some(s=>pro
 <div class="prose">
 <span class="tag">Case study</span>
 <h2>Project brief</h2><p>{project.summary}</p>
+<h3>Related services</h3><p>{projectServices.map((s,i)=><span><a href={'/services/'+s.slug+'/'}>{s.title}</a>{i<projectServices.length-1?' · ':''}</span>)}</p>
 <h3>Scope of services</h3><ul>{project.scope.map(item=><li>{item}</li>)}</ul>
 <h3>Key results and contribution</h3><ul>{project.results.map(item=><li>{item}</li>)}</ul>
 <div class="pending"><strong>Evidence note:</strong> This case study distinguishes documented ATRS assignments from key-personnel experience and does not introduce unverified project figures.</div>
