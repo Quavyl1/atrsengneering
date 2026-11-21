@@ -1,4 +1,122 @@
 ---
-import Base from '../layouts/Base.astro'; import {services,projects,insights} from '../data/content';
+import Base from '../layouts/Base.astro';
+import {services,projects,insights} from '../data/content';
+
+const featured=projects.filter(p=>p.featured).slice(0,3);
+const schema={
+  '@context':'https://schema.org',
+  '@type':'ProfessionalService',
+  name:'ATRS Engineering Consultants Limited',
+  url:'https://atrseng.co.ke',
+  description:'Traffic engineering, road safety, public transport and mobility consultancy in Kenya and East Africa.',
+  areaServed:['Kenya','Somalia','East Africa'],
+  email:'info@atrseng.co.ke'
+};
 ---
-<Base title="Traffic, Road Safety & Awareness Consultancy"><section class="hero"><div class="container"><span class="eyebrow">Traffic · Road Safety · Awareness</span><h1>Engineering safer movement and better-connected communities.</h1><p>ATRS Engineering Consultants provides practical, evidence-based solutions across traffic engineering, road safety and awareness.</p><div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px"><a class="btn gold" href="/contact/">Request a proposal</a><a class="btn darkbtn" style="border-color:#fff;color:#fff" href="/projects/">View projects</a></div></div></section><section class="section"><div class="container"><div class="sectionhead"><div><span class="tag">Three pillars</span><h2>Focused expertise for transport decisions</h2></div><p>Engineering analysis connected to safer roads, efficient mobility and practical awareness.</p></div><div class="grid"><article class="card"><span class="pill">Traffic</span><h3>Traffic</h3><p>Assessment, forecasting, operations, access and network planning.</p></article><article class="card"><span class="pill">Road Safety</span><h3>Road Safety</h3><p>Risk review, safety assessment and engineering mitigation.</p></article><article class="card"><span class="pill">Awareness</span><h3>Awareness</h3><p>Road-user education and awareness programmes linked to evidence.</p></article></div></div></section><section class="section alt"><div class="container"><div class="sectionhead"><div><span class="tag">Core services</span><h2>What we do</h2></div><a class="btn darkbtn" href="/services/">All services</a></div><div class="grid">{services.map(s=><article class="card"><span class="pill">{s.pillar}</span><h3>{s.title}</h3><p>{s.summary}</p><a class="link" href={'/services/'+s.slug+'/'}>Explore service →</a></article>)}</div></div></section><section class="section"><div class="container"><div class="sectionhead"><div><span class="tag">Selected experience</span><h2>Project proof</h2></div><a class="btn darkbtn" href="/projects/">All projects</a></div><div class="grid">{projects.slice(0,3).map(p=><article class="card"><div class="meta"><span>{p.country}</span><span>·</span><span>{p.date}</span></div><h3>{p.title}</h3><p><strong>{p.client}</strong></p><p>{p.summary}</p><a class="link" href={'/projects/'+p.slug+'/'}>Read case study →</a></article>)}</div></div></section><section class="cta"><div class="container ctain"><div><span class="tag">Start a conversation</span><h2>Have a project, tender or partnership opportunity?</h2><p>Tell ATRS what you are planning and the technical support you need.</p></div><a class="btn darkbtn" href="/partner/">Partner with ATRS →</a></div></section></Base>
+<Base title="Traffic, Road Safety & Mobility Consultancy" description="ATRS Engineering Consultants provides traffic engineering, road safety, public transport, BRT, mobility and traffic impact assessment services in Kenya and East Africa." schema={schema}>
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">Traffic · Road Safety · Mobility</span>
+    <h1>Engineering safer movement and better-connected communities.</h1>
+    <p>ATRS Engineering Consultants provides evidence-led traffic, road safety and mobility expertise for highways, urban transport, BRT corridors and property developments.</p>
+    <div class="hero-actions">
+      <a class="btn btn-gold" href="/contact/">Request a proposal</a>
+      <a class="btn btn-outline" href="/projects/">Explore project experience</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div>
+      <span class="tag">Why ATRS</span>
+      <h2>Technical analysis that supports real project decisions.</h2>
+      <p>Our work connects field evidence, traffic analysis, road safety thinking and practical recommendations. The result is information that project owners, designers and implementing agencies can use.</p>
+      <a class="link" href="/about/">About ATRS →</a>
+    </div>
+    <div class="feature-box">
+      <span class="eyebrow">Core approach</span>
+      <h3 style="font-size:2rem">Evidence → Analysis → Recommendation</h3>
+      <p>Define the decision. Collect the right evidence. Analyse the network or corridor. Translate findings into practical engineering and operational actions.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px">
+        <div><strong>01</strong><br><small>Understand</small></div>
+        <div><strong>02</strong><br><small>Assess</small></div>
+        <div><strong>03</strong><br><small>Recommend</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-soft">
+  <div class="container">
+    <div class="section-head">
+      <div><span class="tag">Capabilities</span><h2>Six service areas built around transport evidence.</h2></div>
+      <a class="btn btn-dark" href="/services/">View all services</a>
+    </div>
+    <div class="grid">
+      {services.map(s=><article class="card"><span class="pill">{s.pillar}</span><h3>{s.title}</h3><p>{s.summary}</p><a class="link" href={'/services/'+s.slug+'/'}>Explore service →</a></article>)}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div><span class="tag">Project evidence</span><h2>Experience across highways, BRT and development traffic.</h2></div>
+      <a class="btn btn-dark" href="/projects/">View all projects</a>
+    </div>
+    <div class="grid">
+      {featured.map(p=><article class="card">
+        <div class="meta"><span>{p.country}</span><span>·</span><span>{p.date}</span></div>
+        <span class="pill">{p.category}</span>
+        <h3>{p.title}</h3>
+        <p><strong>{p.client}</strong></p>
+        <p>{p.summary}</p>
+        <a class="link" href={'/projects/'+p.slug+'/'}>Read case study →</a>
+      </article>)}
+    </div>
+  </div>
+</section>
+
+<section class="section section-dark">
+  <div class="container">
+    <div class="section-head">
+      <div><span class="tag">Where we add value</span><h2>Transport problems need connected thinking.</h2></div>
+      <p>ATRS experience spans the interface between traffic, safety, public transport, access and development decisions.</p>
+    </div>
+    <div class="grid">
+      <article class="card"><span class="pill">01</span><h3>Roads & highways</h3><p>Traffic surveys, demand forecasting, capacity, safety assessment and road-user considerations.</p></article>
+      <article class="card"><span class="pill">02</span><h3>Urban mobility</h3><p>BRT, public transport operations, corridor performance, intersections and multimodal access.</p></article>
+      <article class="card"><span class="pill">03</span><h3>Developments</h3><p>Traffic impact, trip generation, access, circulation, capacity and mitigation for property projects.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head"><div><span class="tag">Insights</span><h2>Useful answers before you commission a study.</h2></div><a class="btn btn-dark" href="/insights/">All insights</a></div>
+    <div class="article-list">
+      {insights.map(a=><article class="article-card"><div class="article-meta">ATRS Insight</div><h2>{a.title}</h2><p>{a.excerpt}</p><a class="link" href={'/insights/'+a.slug+'/'}>Read insight →</a></article>)}
+    </div>
+  </div>
+</section>
+
+<section class="section section-soft">
+  <div class="container">
+    <div class="section-head"><div><span class="tag">Common questions</span><h2>What clients usually need to know.</h2></div></div>
+    <div class="grid-2">
+      <div class="faq"><h3>When should a traffic consultant be engaged?</h3><p>Ideally before key access, layout, corridor or investment decisions are fixed, so the required evidence can inform the design.</p></div>
+      <div class="faq"><h3>What is included in a traffic impact assessment?</h3><p>Depending on the project, it can include traffic surveys, trip generation, distribution, capacity, access, safety and mitigation assessment.</p></div>
+      <div class="faq"><h3>Can ATRS support highway and BRT projects?</h3><p>Yes. The documented portfolio includes highway traffic and safety work as well as BRT and public transport planning experience.</p></div>
+      <div class="faq"><h3>Does ATRS work outside Kenya?</h3><p>Documented project experience includes Kenya and Somalia, with additional key-personnel experience elsewhere in East Africa.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container cta-inner">
+    <div><span class="tag">Start a project conversation</span><h2>Tell us what decision your project needs to make.</h2><p>Share the location, project type, scope and required timeline.</p></div>
+    <a class="btn btn-dark" href="/contact/">Contact ATRS →</a>
+  </div>
+</section>
+</Base>
