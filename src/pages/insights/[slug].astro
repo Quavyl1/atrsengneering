@@ -1,4 +1,19 @@
 ---
-import Base from '../../layouts/Base.astro'; import {insights} from '../../data/content'; export function getStaticPaths(){return insights.map(article=>({params:{slug:article.slug},props:{article}}))}; const {article}=Astro.props;
+import Base from '../../layouts/Base.astro';
+import {insights} from '../../data/content';
+export function getStaticPaths(){return insights.map(article=>({params:{slug:article.slug},props:{article}}))}
+const {article}=Astro.props;
+const schema={'@context':'https://schema.org','@type':'Article',headline:article.title,description:article.excerpt,author:{'@type':'Organization',name:'ATRS Engineering Consultants Limited'},publisher:{'@type':'Organization',name:'ATRS Engineering Consultants Limited',url:'https://atrseng.co.ke'},mainEntityOfPage:'https://atrseng.co.ke/insights/'+article.slug+'/'};
 ---
-<Base title={article.title} description={article.excerpt}><section class="hero"><div class="container"><p><a href="/insights/">Insights</a> / {article.title}</p><span class="eyebrow">Insight</span><h1>{article.title}</h1><p>{article.excerpt}</p></div></section><section class="section"><div class="container prose"><span class="tag">Draft article</span><h2>Article content</h2><p>This launch article is part of the approved site structure. The final editorial copy is to be drafted or supplied and approved by ATRS before publication.</p><div class="pending"><strong>Content gate:</strong> do not treat this page as a published ATRS position until the article has been reviewed and approved.</div></div></section></Base>
+<Base title={article.title} description={article.excerpt} ogType="article" schema={schema}>
+<section class="hero"><div class="container"><p><a href="/insights/">Insights</a> / {article.category}</p><span class="eyebrow">{article.category} · {article.readTime}</span><h1>{article.title}</h1><p>{article.excerpt}</p></div></section>
+<section class="section"><div class="container split"><article class="prose">
+<p style="font-size:1.15rem;color:#34444e">{article.intro}</p>
+{article.sections.map(section=><section><h2>{section.heading}</h2><p>{section.body}</p></section>)}
+<div class="evidence"><strong>Engineering note:</strong> The article provides general technical guidance. Project-specific scope, survey requirements, standards and approvals should be confirmed for the assignment in question.</div>
+<a class="btn btn-dark" href="/contact/">Discuss a project →</a>
+</article>
+<aside>
+<div class="card"><span class="tag">Explore further</span><h3>Related ATRS services</h3><a class="link" href="/services/traffic-engineering/">Traffic Engineering →</a><a class="link" href="/services/road-safety-engineering/">Road Safety Engineering →</a><a class="link" href="/services/public-transport-brt/">Public Transport / BRT →</a><a class="link" href="/projects/">Project experience →</a></div>
+</aside></div></section>
+</Base>
