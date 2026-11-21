@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import {projects,services} from '../../data/content';
+import Icon from '../../components/Icon.astro';
 export function getStaticPaths(){return projects.map(project=>({params:{slug:project.slug},props:{project}}))}
 const {project}=Astro.props;
 const related=projects.filter(p=>p.slug!==project.slug && p.services.some(s=>project.services.includes(s))).slice(0,3);
@@ -12,12 +13,12 @@ const schema={'@context':'https://schema.org','@type':'CreativeWork',name:projec
 <section class="section">
 <div class="container">
 <div class="fact-grid">
-<div class="fact"><small>Client</small><strong>{project.client}</strong></div>
-{project.financier&&<div class="fact"><small>Financier</small><strong>{project.financier}</strong></div>}
-<div class="fact"><small>Country</small><strong>{project.country}</strong></div>
-<div class="fact"><small>Period</small><strong>{project.date}</strong></div>
-<div class="fact"><small>ATRS status</small><strong>{project.status}</strong></div>
-<div class="fact"><small>ATRS role</small><strong>{project.role}</strong></div>
+<div class="fact"><Icon name="partner"/><small>Client</small><strong>{project.client}</strong></div>
+{project.financier&&<div class="fact"><Icon name="partner"/><small>Financier</small><strong>{project.financier}</strong></div>}
+<div class="fact"><Icon name="mobility"/><small>Country</small><strong>{project.country}</strong></div>
+<div class="fact"><Icon name="data"/><small>Period</small><strong>{project.date}</strong></div>
+<div class="fact"><Icon name="safety"/><small>ATRS status</small><strong>{project.status}</strong></div>
+<div class="fact"><Icon name="traffic"/><small>ATRS role</small><strong>{project.role}</strong></div>
 </div>
 <div class="prose">
 <span class="tag">Case study</span>
@@ -30,6 +31,6 @@ const schema={'@context':'https://schema.org','@type':'CreativeWork',name:projec
 </div>
 </div>
 </section>
-{related.length>0&&<section class="section section-soft"><div class="container"><div class="section-head"><div><span class="tag">Related evidence</span><h2>Other projects using similar capabilities.</h2></div></div><div class="grid">{related.map(p=><article class="card"><span class="pill">{p.category}</span><h3>{p.title}</h3><p>{p.summary}</p><a class="link" href={'/projects/'+p.slug+'/'}>View project →</a></article>)}</div></div></section>}
+{related.length>0&&<section class="section section-soft"><div class="container"><div class="section-head"><div><span class="tag">Related evidence</span><h2>Other projects using similar capabilities.</h2></div></div><div class="grid">{related.map(p=><article class="card"><Icon name="project"/><span class="pill">{p.category}</span><h3>{p.title}</h3><p>{p.summary}</p><a class="link" href={'/projects/'+p.slug+'/'}>View project →</a></article>)}</div></div></section>}
 <section class="cta"><div class="container cta-inner"><div><span class="tag">Similar project?</span><h2>Tell ATRS what you need assessed.</h2><p>Share the location, scope and decision deadline.</p></div><a class="btn btn-dark" href="/contact/">Request a proposal →</a></div></section>
 </Base>
