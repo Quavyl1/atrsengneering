@@ -91,7 +91,49 @@ relatedArticles:['traffic-modelling-for-development-projects','junction-capacity
 ];
 
 export const insights=[
-{slug:'traffic-surveys-highway-planning',title:'How Traffic Surveys Support Highway Planning in Kenya',excerpt:'How structured traffic surveys establish the evidence base for highway assessment, forecasting and investment decisions.'},
-{slug:'traffic-impact-assessments-property-developments',title:'Traffic Impact Assessments for Property Developments in Kenya',excerpt:'What developers should expect a traffic impact assessment to examine before access, capacity and mitigation decisions are made.'},
-{slug:'road-safety-in-brt-planning',title:'Road Safety Considerations for BRT Corridors',excerpt:'How traffic operations, pedestrian movement, accessibility and conflict points can be considered in BRT planning and design.'}
+{
+ slug:'traffic-surveys-highway-planning',
+ title:'How Traffic Surveys Support Highway Planning in Kenya',
+ excerpt:'A practical guide to the traffic evidence used to understand existing conditions, forecast demand and support highway investment and design decisions.',
+ readTime:'6 min read',
+ category:'Traffic engineering',
+ intro:'Highway decisions depend on an evidence base that explains how people and vehicles use a corridor today and how that pattern may change. Traffic surveys are one of the foundations of that evidence.',
+ sections:[
+  {heading:'Why traffic surveys matter',body:'A highway study should not begin with a forecast model alone. Classified traffic counts, turning movements, non-motorized traffic observations and, where relevant, origin–destination information help establish what is happening on the network. The right survey programme depends on the decision being made and the corridor characteristics.'},
+  {heading:'What a useful survey programme can include',body:'Depending on scope, a programme can include classified counts, peak-period observations, junction turning counts, pedestrian and cyclist counts, travel-time observations and origin–destination surveys. Video-based collection can support repeatable review and quality control when conditions and permissions allow.'},
+  {heading:'From counts to engineering decisions',body:'Raw traffic volumes become useful when they are interpreted alongside road geometry, junction operation, access, safety conditions and development or economic context. The resulting analysis can inform capacity assessment, traffic forecasting, road design, operational planning and investment appraisal.'},
+  {heading:'Forecasting needs a transparent baseline',body:'Forecasts should be traceable to the observed baseline and to clearly stated assumptions about growth, land use, network changes and demand. This makes the final engineering recommendation easier for clients and reviewers to understand and challenge constructively.'},
+  {heading:'What clients should ask a consultant',body:'Ask what decisions the survey is intended to support, which survey types are proposed, how data quality will be controlled, how seasonal or exceptional conditions will be treated and how the results will feed into the final engineering recommendations.'}
+ ]
+},
+{
+ slug:'traffic-impact-assessments-property-developments',
+ title:'Traffic Impact Assessments for Property Developments in Kenya',
+ excerpt:'What a development traffic assessment should examine before access, capacity, circulation and mitigation decisions are finalised.',
+ readTime:'7 min read',
+ category:'Traffic impact assessment',
+ intro:'A new development changes how people and vehicles arrive, depart and move through the surrounding network. A traffic impact assessment helps turn that change into a measurable engineering problem.',
+ sections:[
+  {heading:'When is a traffic impact assessment useful?',body:'A traffic assessment is useful when a proposed development may materially change traffic conditions, access arrangements, junction performance, pedestrian movement or road safety. The required depth should reflect the size, location, land use and sensitivity of the surrounding network.'},
+  {heading:'Start with existing conditions',body:'The assessment should establish the current transport environment. This can include traffic counts, junction observations, road geometry, pedestrian activity, public transport interfaces, access points and existing safety concerns. The aim is to understand the network before adding the development demand.'},
+  {heading:'Estimate development traffic',body:'Trip generation is normally developed from the proposed land use, scale, operating characteristics and appropriate reference information. Trips are then distributed and assigned to the network so that the assessment can examine where additional demand is likely to appear.'},
+  {heading:'Assess access and capacity',body:'A good assessment looks beyond the site entrance. It considers access spacing, internal circulation, junction operation, queues, pedestrian crossings and the interaction between development traffic and through traffic. Where modelling is justified, the assumptions and outputs should be clearly documented.'},
+  {heading:'Mitigation should be practical',body:'Mitigation can involve access changes, circulation improvements, junction measures, pedestrian facilities, traffic management or phasing. The recommendations should be proportionate to the identified impact and capable of being incorporated into the project design or approvals process.'}
+ ]
+},
+{
+ slug:'road-safety-in-brt-planning',
+ title:'Road Safety Considerations for BRT Corridors',
+ excerpt:'How BRT planning can address pedestrians, passengers, intersections, traffic interfaces, accessibility and conflict reduction from the beginning.',
+ readTime:'7 min read',
+ category:'BRT & road safety',
+ intro:'BRT changes how people, buses and general traffic interact with a corridor. Road safety therefore needs to be considered as part of corridor planning and service design, not treated as a final-stage add-on.',
+ sections:[
+  {heading:'Start with the whole corridor',body:'A BRT safety review should consider stations, pedestrian desire lines, crossings, intersections, access points, bus movements, general traffic and surrounding land uses. The safest station design can still create risk if the wider pedestrian route to it is difficult or poorly controlled.'},
+  {heading:'Passenger access is a safety issue',body:'Station access, crossing arrangements, platform interfaces, visibility and universal accessibility all influence how passengers interact with traffic. Planning should consider people with reduced mobility as well as everyday pedestrian movement.'},
+  {heading:'Intersections need particular attention',body:'BRT priority treatments can change signal operation, turning movements and conflict patterns. Junction assessment should therefore examine bus priority, pedestrian crossings, turning traffic and sight-distance together rather than treating each movement in isolation.'},
+  {heading:'Speed and conflict management',body:'Reducing serious conflicts often requires a combination of geometry, speed management, markings, signs, signal control, pedestrian facilities and operational measures. The appropriate combination depends on the corridor and should be supported by observed conditions and design analysis.'},
+  {heading:'Measure the design against real users',body:'A useful review asks practical questions: Can a pedestrian reach the station directly? Are crossings visible? Can buses enter and leave safely? Where do passengers interact with general traffic? Are vulnerable road users protected at conflict points? These questions help translate engineering drawings into real-world safety outcomes.'}
+ ]
+}
 ];
