@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import {insights} from '../../data/content';
+import Icon from '../../components/Icon.astro';
 export function getStaticPaths(){return insights.map(article=>({params:{slug:article.slug},props:{article}}))}
 const {article}=Astro.props;
 const schema={'@context':'https://schema.org','@type':'Article',headline:article.title,description:article.excerpt,author:{'@type':'Organization',name:'ATRS Engineering Consultants Limited'},publisher:{'@type':'Organization',name:'ATRS Engineering Consultants Limited',url:'https://atrseng.co.ke'},mainEntityOfPage:'https://atrseng.co.ke/insights/'+article.slug+'/'};
@@ -14,6 +15,6 @@ const schema={'@context':'https://schema.org','@type':'Article',headline:article
 <a class="btn btn-dark" href="/contact/">Discuss a project →</a>
 </article>
 <aside>
-<div class="card"><span class="tag">Explore further</span><h3>Related ATRS services</h3><a class="link" href="/services/traffic-engineering/">Traffic Engineering →</a><a class="link" href="/services/road-safety-engineering/">Road Safety Engineering →</a><a class="link" href="/services/public-transport-brt/">Public Transport / BRT →</a><a class="link" href="/projects/">Project experience →</a></div>
+<div class="card"><Icon name="insight"/><span class="tag">Explore further</span><h3>Related ATRS services</h3><a class="link" href="/services/traffic-engineering/">Traffic Engineering →</a><a class="link" href="/services/road-safety-engineering/">Road Safety Engineering →</a><a class="link" href="/services/public-transport-brt/">Public Transport / BRT →</a><a class="link" href="/projects/">Project experience →</a></div>
 </aside></div></section>
 </Base>
