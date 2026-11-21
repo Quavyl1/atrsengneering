@@ -1,4 +1,31 @@
 ---
-import Base from '../../layouts/Base.astro'; import {projects} from '../../data/content'; export function getStaticPaths(){return projects.map(project=>({params:{slug:project.slug},props:{project}}))}; const {project}=Astro.props;
+import Base from '../../layouts/Base.astro';
+import {projects} from '../../data/content';
+export function getStaticPaths(){return projects.map(project=>({params:{slug:project.slug},props:{project}}))}
+const {project}=Astro.props;
+const related=projects.filter(p=>p.slug!==project.slug && p.services.some(s=>project.services.includes(s))).slice(0,3);
 ---
-<Base title={project.title} description={project.summary}><section class="hero"><div class="container"><p><a href="/projects/">Projects</a> / {project.title}</p><span class="eyebrow">{project.category}</span><h1>{project.title}</h1><p>{project.summary}</p></div></section><section class="section"><div class="container"><div class="factgrid"><div class="fact"><small>Client</small><strong>{project.client}</strong></div><div class="fact"><small>Country</small><strong>{project.country}</strong></div><div class="fact"><small>Date</small><strong>{project.date}</strong></div><div class="fact"><small>Category</small><strong>{project.category}</strong></div></div><div class="prose"><span class="tag">Case study</span><h2>Project brief</h2><p>{project.summary}</p><h3>Scope of services</h3><ul><li>Traffic and transport assessment inputs</li><li>Engineering analysis and technical reporting</li><li>Coordination of recommendations with project requirements</li></ul><h3>Key results</h3><p>Detailed results, figures and supporting evidence are subject to ATRS content verification before publication.</p><div class="pending"><strong>Verification note:</strong> No additional project claims are introduced beyond the available source material.</div></div></div></section></Base>
+<Base title={project.title} description={project.seo.description}>
+<section class="hero"><div class="container"><p><a href="/projects/">Projects</a> / {project.title}</p><span class="eyebrow">{project.category}</span><h1>{project.title}</h1><p>{project.summary}</p></div></section>
+<section class="section"><div class="container">
+<div class="factgrid">
+<div class="fact"><small>Client</small><strong>{project.client}</strong></div>
+{project.financier && <div class="fact"><small>Financier</small><strong>{project.financier}</strong></div>}
+<div class="fact"><small>Location</small><strong>{project.country}</strong></div>
+<div class="fact"><small>Period</small><strong>{project.date}</strong></div>
+<div class="fact"><small>ATRS status</small><strong>{project.status}</strong></div>
+<div class="fact"><small>ATRS role</small><strong>{project.role}</strong></div>
+</div>
+<div class="prose">
+<span class="tag">Case study</span>
+<h2>Project brief</h2><p>{project.summary}</p>
+<h3>Scope of services</h3><ul>{project.scope.map(item=><li>{item}</li>)}</ul>
+<h3>Key results and contribution</h3><ul>{project.results.map(item=><li>{item}</li>)}</ul>
+<div class="pending"><strong>Evidence note:</strong> This case study distinguishes documented ATRS assignments from key-personnel experience and does not introduce unverified project figures.</div>
+<h3>Questions this project helps answer</h3>
+<ul>{project.seo.questions.map(q=><li>{q}</li>)}</ul>
+</div>
+</div></section>
+{related.length>0 && <section class="section alt"><div class="container"><span class="eyebrow">Related experience</span><h2>Related projects</h2><div class="grid">{related.map(p=><article class="card"><span class="pill">{p.category}</span><h3>{p.title}</h3><p>{p.summary}</p><a class="link" href={'/projects/'+p.slug+'/'}>View project →</a></article>)}</div></div></section>}
+<section class="cta"><div class="container ctain"><div><h2>Need similar expertise on your project?</h2><p>Share the location, scope and decision deadline.</p></div><a class="btn darkbtn" href="/contact/">Request a proposal →</a></div></section>
+</Base>
