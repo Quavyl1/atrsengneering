@@ -25,7 +25,7 @@ const projectServices=services.filter(s=>project.services.includes(s.slug));
 <div class="prose">
 <span class="tag">Case study</span>
 <h2>Project brief</h2><p>{project.summary}</p>
-<h3>Related services</h3><p>{projectServices.map((s,i)=><span><a href={'/services/'+s.slug+'/'}>{s.title}</a>{i<projectServices.length-1?' · ':''}</span>)}</p>
+<h3>Related services</h3><p>{projectServices.map(s=><a href={'/services/'+s.slug+'/'}>{s.title}</a>)}</p>
 <h3>Scope of services</h3><ul>{project.scope.map(item=><li>{item}</li>)}</ul>
 <h3>Key results and contribution</h3><ul>{project.results.map(item=><li>{item}</li>)}</ul>
 <div class="pending"><strong>Evidence note:</strong> This case study distinguishes documented ATRS assignments from key-personnel experience and does not introduce unverified project figures.</div>
