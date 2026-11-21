@@ -5,16 +5,16 @@ export function getStaticPaths(){return services.map(service=>({params:{slug:ser
 const {service}=Astro.props;
 const related=projects.filter(p=>p.services.includes(service.slug));
 const faqs=[
-  {question:`What does ${service.title} cover?`,answer:service.summary},
-  {question:'What are the typical deliverables?',answer:service.items.join('; ')+'.'},
-  {question:`When should a client engage ATRS for ${service.title.toLowerCase()}?`,answer:'ATRS should be engaged early enough to define the evidence required, assess the relevant traffic or safety conditions and translate the findings into practical project decisions.'}
+ {q:`What does ${service.title} cover?`,a:service.summary},
+ {q:'What are the typical deliverables?',a:service.items.join('; ')+'.'},
+ {q:'When should a client engage ATRS?',a:'Engage ATRS early enough for the required traffic, safety or mobility evidence to influence the relevant project decision, rather than only after the design is fixed.'}
 ];
-const serviceSchema={'@context':'https://schema.org','@type':'Service',name:service.title,description:service.summary,provider:{'@type':'Organization',name:'ATRS Engineering Consultants Limited',url:'https://atrseng.co.ke'},url:new URL(Astro.url.pathname,'https://atrseng.co.ke').href};
-const faqSchema={'@context':'https://schema.org','@type':'FAQPage',mainEntity:faqs.map(f=>({'@type':'Question',name:f.question,acceptedAnswer:{'@type':'Answer',text:f.answer}}))};
+const schema={'@context':'https://schema.org','@type':'Service',name:service.title,description:service.summary,provider:{'@type':'Organization',name:'ATRS Engineering Consultants Limited',url:'https://atrseng.co.ke'},url:'https://atrseng.co.ke/services/'+service.slug+'/'};
 ---
-<Base title={service.title} description={service.summary} schema={[serviceSchema,faqSchema]}>
+<Base title={service.title} description={service.summary} schema={schema}>
 <section class="hero"><div class="container"><p><a href="/services/">Services</a> / {service.title}</p><span class="eyebrow">{service.pillar}</span><h1>{service.title}</h1><p>{service.summary}</p></div></section>
-<section class="section"><div class="container prose"><span class="tag">Service scope</span><h2>What this service covers</h2><p>ATRS applies a structured engineering approach to define the problem, establish the evidence base and develop recommendations that can be taken forward by clients and project teams.</p><h3>Typical deliverables</h3><ul>{service.items.map(i=><li>{i}</li>)}</ul><h3>Frequently asked questions</h3>{faqs.map(f=><div class="faq"><h4>{f.question}</h4><p>{f.answer}</p></div>)}</div></section>
-{related.length>0 && <section class="section alt"><div class="container"><span class="eyebrow">Project evidence</span><h2>Related projects</h2><div class="grid">{related.map(p=><article class="card"><span class="pill">{p.category}</span><h3>{p.title}</h3><p>{p.summary}</p><a class="link" href={'/projects/'+p.slug+'/'}>View project →</a></article>)}</div></div></section>}
-<section class="cta"><div class="container ctain"><div><h2>Need this expertise on your project?</h2><p>Send the scope, location and decision deadline.</p></div><a class="btn darkbtn" href="/contact/">Request a proposal →</a></div></section>
+<section class="section"><div class="container split"><div class="prose"><span class="tag">Service scope</span><h2>What we can support</h2><p>ATRS applies a structured, evidence-led approach to transport problems. The exact scope is adapted to the project, corridor, development or programme.</p><h3>Typical deliverables</h3><ul>{service.items.map(i=><li>{i}</li>)}</ul></div><div class="feature-box"><span class="eyebrow">Relevant project evidence</span><h3 style="font-size:1.8rem">{related.length} portfolio {related.length===1?'example':'examples'}</h3><p>Explore documented and clearly labelled project experience connected to this service.</p>{related.slice(0,3).map(p=><a class="link" style="display:block;color:#f1d18a" href={'/projects/'+p.slug+'/'}>{p.title} →</a>)}</div></div></section>
+<section class="section section-soft"><div class="container"><span class="tag">Frequently asked questions</span><h2>Questions clients ask about {service.title.toLowerCase()}.</h2><div style="max-width:850px;margin-top:24px">{faqs.map(f=><div class="faq"><h3>{f.q}</h3><p>{f.a}</p></div>)}</div></div></section>
+{related.length>0 && <section class="section"><div class="container"><div class="section-head"><div><span class="tag">Related experience</span><h2>Projects using this capability.</h2></div><a class="btn btn-dark" href="/projects/">All projects</a></div><div class="grid">{related.slice(0,6).map(p=><article class="card"><div class="meta"><span>{p.country}</span><span>·</span><span>{p.date}</span></div><h3>{p.title}</h3><p>{p.summary}</p><a class="link" href={'/projects/'+p.slug+'/'}>Read case study →</a></article>)}</div></div></section>}
+<section class="cta"><div class="container cta-inner"><div><span class="tag">Need this expertise?</span><h2>Let's scope the right technical support.</h2></div><a class="btn btn-dark" href="/contact/">Request a proposal →</a></div></section>
 </Base>
