@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import {services,projects,insights} from '../data/content';
+import Icon from '../components/Icon.astro';
 
 const featured=projects.filter(p=>p.featured).slice(0,3);
 const schema={
@@ -54,7 +55,7 @@ const schema={
       <a class="btn btn-dark" href="/services/">View all services</a>
     </div>
     <div class="grid">
-      {services.map(s=><article class="card"><span class="pill">{s.pillar}</span><h3>{s.title}</h3><p>{s.summary}</p><a class="link" href={'/services/'+s.slug+'/'}>Explore service →</a></article>)}
+      {services.map(s=><article class="card"><div class="icon-row"><Icon name={s.slug==='traffic-engineering'?'traffic':s.slug==='road-safety-engineering'?'safety':s.slug==='public-transport-brt'?'transport':s.slug==='data-surveys-analysis'?'data':s.slug==='green-mobility'?'mobility':'awareness'}/><span class="pill">{s.pillar}</span></div><h3>{s.title}</h3><p>{s.summary}</p><a class="link" href={'/services/'+s.slug+'/'}>Explore service →</a></article>)}
     </div>
   </div>
 </section>
@@ -67,6 +68,7 @@ const schema={
     </div>
     <div class="grid">
       {featured.map(p=><article class="card">
+        <Icon name="project"/>
         <div class="meta"><span>{p.country}</span><span>·</span><span>{p.date}</span></div>
         <span class="pill">{p.category}</span>
         <h3>{p.title}</h3>
@@ -85,9 +87,9 @@ const schema={
       <p>ATRS experience spans the interface between traffic, safety, public transport, access and development decisions.</p>
     </div>
     <div class="grid">
-      <article class="card"><span class="pill">01</span><h3>Roads & highways</h3><p>Traffic surveys, demand forecasting, capacity, safety assessment and road-user considerations.</p></article>
-      <article class="card"><span class="pill">02</span><h3>Urban mobility</h3><p>BRT, public transport operations, corridor performance, intersections and multimodal access.</p></article>
-      <article class="card"><span class="pill">03</span><h3>Developments</h3><p>Traffic impact, trip generation, access, circulation, capacity and mitigation for property projects.</p></article>
+      <article class="card"><Icon name="traffic"/><span class="pill">01</span><h3>Roads & highways</h3><p>Traffic surveys, demand forecasting, capacity, safety assessment and road-user considerations.</p></article>
+      <article class="card"><Icon name="transport"/><span class="pill">02</span><h3>Urban mobility</h3><p>BRT, public transport operations, corridor performance, intersections and multimodal access.</p></article>
+      <article class="card"><Icon name="project"/><span class="pill">03</span><h3>Developments</h3><p>Traffic impact, trip generation, access, circulation, capacity and mitigation for property projects.</p></article>
     </div>
   </div>
 </section>
@@ -96,7 +98,7 @@ const schema={
   <div class="container">
     <div class="section-head"><div><span class="tag">Insights</span><h2>Useful answers before you commission a study.</h2></div><a class="btn btn-dark" href="/insights/">All insights</a></div>
     <div class="article-list">
-      {insights.map(a=><article class="article-card"><div class="article-meta">ATRS Insight</div><h2>{a.title}</h2><p>{a.excerpt}</p><a class="link" href={'/insights/'+a.slug+'/'}>Read insight →</a></article>)}
+      {insights.map(a=><article class="article-card"><Icon name="insight"/><div class="article-meta">ATRS Insight</div><h2>{a.title}</h2><p>{a.excerpt}</p><a class="link" href={'/insights/'+a.slug+'/'}>Read insight →</a></article>)}
     </div>
   </div>
 </section>
