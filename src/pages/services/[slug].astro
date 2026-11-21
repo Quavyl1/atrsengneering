@@ -1,4 +1,13 @@
 ---
-import Base from '../../layouts/Base.astro'; import {services} from '../../data/content'; export function getStaticPaths(){return services.map(service=>({params:{slug:service.slug},props:{service}}))}; const {service}=Astro.props;
+import Base from '../../layouts/Base.astro';
+import {services,projects} from '../../data/content';
+export function getStaticPaths(){return services.map(service=>({params:{slug:service.slug},props:{service}}))}
+const {service}=Astro.props;
+const related=projects.filter(p=>p.services.includes(service.slug));
 ---
-<Base title={service.title} description={service.summary}><section class="hero"><div class="container"><p><a href="/services/">Services</a> / {service.title}</p><span class="eyebrow">{service.pillar}</span><h1>{service.title}</h1><p>{service.summary}</p></div></section><section class="section"><div class="container prose"><span class="tag">Service scope</span><h2>What this service covers</h2><p>ATRS applies a structured engineering approach to define the problem, establish the evidence base and develop recommendations that can be taken forward by clients and project teams.</p><h3>Typical deliverables</h3><ul>{service.items.map(i=><li>{i}</li>)}</ul><div class="pending"><strong>Content gate:</strong> detailed service copy, project relationships and FAQ content are to be approved by ATRS before publication.</div></div></section><section class="cta"><div class="container ctain"><div><h2>Need this expertise on your project?</h2><p>Send the scope, location and decision deadline.</p></div><a class="btn darkbtn" href="/contact/">Request a proposal →</a></div></section></Base>
+<Base title={service.title} description={service.summary}>
+<section class="hero"><div class="container"><p><a href="/services/">Services</a> / {service.title}</p><span class="eyebrow">{service.pillar}</span><h1>{service.title}</h1><p>{service.summary}</p></div></section>
+<section class="section"><div class="container prose"><span class="tag">Service scope</span><h2>What this service covers</h2><p>ATRS applies a structured engineering approach to define the problem, establish the evidence base and develop recommendations that can be taken forward by clients and project teams.</p><h3>Typical deliverables</h3><ul>{service.items.map(i=><li>{i}</li>)}</ul></div></section>
+{related.length>0 && <section class="section alt"><div class="container"><span class="eyebrow">Project evidence</span><h2>Related projects</h2><div class="grid">{related.map(p=><article class="card"><span class="pill">{p.category}</span><h3>{p.title}</h3><p>{p.summary}</p><a class="link" href={'/projects/'+p.slug+'/'}>View project →</a></article>)}</div></div></section>}
+<section class="cta"><div class="container ctain"><div><h2>Need this expertise on your project?</h2><p>Send the scope, location and decision deadline.</p></div><a class="btn darkbtn" href="/contact/">Request a proposal →</a></div></section>
+</Base>
