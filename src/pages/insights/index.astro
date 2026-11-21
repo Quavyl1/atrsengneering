@@ -1,4 +1,10 @@
 ---
-import Base from '../../layouts/Base.astro'; import {insights} from '../../data/content';
+import Base from '../../layouts/Base.astro';
+import {insights} from '../../data/content';
+const schema={'@context':'https://schema.org','@type':'CollectionPage',name:'ATRS Engineering Insights',url:'https://atrseng.co.ke/insights/'};
 ---
-<Base title="Insights"><section class="hero"><div class="container"><span class="eyebrow">Insights</span><h1>Practical thinking on traffic, safety and mobility.</h1><p>Launch article structure is in place; final editorial copy remains subject to ATRS approval.</p></div></section><section class="section"><div class="container"><div class="grid">{insights.map(a=><article class="card"><span class="pill">Insight</span><h2 style="font-size:1.6rem">{a.title}</h2><p>{a.excerpt}</p><a class="link" href={'/insights/'+a.slug+'/'}>Read article →</a></article>)}</div></div></section></Base>
+<Base title="Insights" description="Practical ATRS insights on traffic surveys, traffic impact assessment, road safety, BRT and mobility planning." schema={schema}>
+<section class="hero"><div class="container"><span class="eyebrow">Insights</span><h1>Practical thinking on traffic, safety and mobility.</h1><p>Useful explanations for project owners, developers, transport agencies and delivery teams making decisions about roads, access, safety and public transport.</p></div></section>
+<section class="section"><div class="container"><div class="article-list">{insights.map(a=><article class="article-card"><div class="article-meta">{a.category} · {a.readTime}</div><h2>{a.title}</h2><p>{a.excerpt}</p><a class="link" href={'/insights/'+a.slug+'/'}>Read insight →</a></article>)}</div></div></section>
+<section class="section section-soft"><div class="container split"><div><span class="tag">Editorial principle</span><h2>Useful before promotional.</h2><p>ATRS insights are designed to answer practical questions clients ask before commissioning traffic, road safety or mobility work. Project-specific claims remain tied to documented evidence.</p></div><div class="feature-box"><span class="eyebrow">Topics</span><h3>Traffic surveys</h3><h3>Traffic impact assessment</h3><h3>Road safety</h3><h3>BRT & public transport</h3></div></div></section>
+</Base>
