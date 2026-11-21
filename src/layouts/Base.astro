@@ -2,10 +2,19 @@
 import {site,nav} from '../data/site';
 import '../styles/global.css';
 
-const {title,description='Traffic engineering, road safety and awareness consultancy.',ogImage,ogType='website',noindex=false,schema=[]}=Astro.props;
-const canonicalUrl = new URL(Astro.url.pathname, site.domain).href;
-const customSchema = Array.isArray(schema) ? schema : [schema];
-const organizationSchema = {
+const {
+  title,
+  description='ATRS Engineering Consultants provides traffic engineering, road safety, public transport and mobility consultancy across Kenya and East Africa.',
+  ogImage='/og-default.svg',
+  ogType='website',
+  noindex=false,
+  schema=[]
+}=Astro.props;
+
+const canonicalUrl=new URL(Astro.url.pathname,site.domain).href;
+const schemas=Array.isArray(schema)?schema:[schema];
+
+const organization={
   '@context':'https://schema.org',
   '@type':'Organization',
   name:site.name,
@@ -19,46 +28,96 @@ const organizationSchema = {
     addressCountry:'KE'
   }
 };
-const breadcrumbSchema = {
+
+const breadcrumb={
   '@context':'https://schema.org',
   '@type':'BreadcrumbList',
   itemListElement:[
     {'@type':'ListItem',position:1,name:'Home',item:site.domain+'/'},
-    {'@type':'ListItem',position:2,name:title || site.name,item:canonicalUrl}
+    ...(Astro.url.pathname!=='/'?[{'@type':'ListItem',position:2,name:title||site.name,item:canonicalUrl}]:[])
   ]
 };
-const schemaGraph = Astro.url.pathname==='/' ? [
-  organizationSchema,
-  {'@context':'https://schema.org','@type':'WebSite',name:site.name,url:site.domain}
-] : [organizationSchema,breadcrumbSchema];
-const allSchema = [...schemaGraph,...customSchema];
+
+const graph=Astro.url.pathname==='/'?
+  [organization,{'@context':'https://schema.org','@type':'WebSite',name:site.name,url:site.domain}]:
+  [organization,breadcrumb];
 ---
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{title ? title+' | ATRS Engineering' : site.name}</title>
+<meta name="theme-color" content="#0c1824">
 <meta name="description" content={description}>
-<meta name="theme-color" content="#14202E">
-<meta name="robots" content={noindex ? 'noindex,follow' : 'index,follow'}>
+<meta name="robots" content={noindex?'noindex,follow':'index,follow'}>
 <link rel="canonical" href={canonicalUrl}>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>{title ? title+' | ATRS Engineering' : site.name}</title>
 <meta property="og:title" content={title ? title+' | ATRS Engineering' : site.name}>
 <meta property="og:description" content={description}>
 <meta property="og:type" content={ogType}>
 <meta property="og:url" content={canonicalUrl}>
 <meta property="og:site_name" content={site.name}>
 <meta property="og:locale" content="en_KE">
-{ogImage && <meta property="og:image" content={new URL(ogImage,site.domain).href}>}
-<meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'}>
+<meta property="og:image" content={new URL(ogImage,site.domain).href}>
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content={title ? title+' | ATRS Engineering' : site.name}>
 <meta name="twitter:description" content={description}>
-{ogImage && <meta name="twitter:image" content={new URL(ogImage,site.domain).href}>}
-{allSchema.map(item => <script type="application/ld+json" set:html={JSON.stringify(item)}></script>)}
+<meta name="twitter:image" content={new URL(ogImage,site.domain).href}>
+{[...graph,...schemas].map(item=><script type="application/ld+json" set:html={JSON.stringify(item)}></script>)}
 </head>
 <body>
-<header class="header"><div class="container head"><a class="brand" href="/">ATRS<span>.ENG</span></a><nav class="nav">{nav.map(([label,href])=><a href={href}>{label}</a>)}</nav><a class="btn gold headbtn" href="/contact/">Request a proposal</a><details class="mobile"><summary>Menu</summary><nav>{nav.map(([label,href])=><a href={href}>{label}</a>)}<a class="btn gold" href="/contact/">Request a proposal</a></nav></details></div></header>
-<main><slot/></main>
-<footer class="footer"><div class="container footgrid"><div><a class="brand inverse" href="/">ATRS<span>.ENG</span></a><p>{site.name}</p><p>{site.address}<br>{site.postal}</p><p><a href={'mailto:'+site.email}>{site.email}</a></p></div><div><h3>Services</h3><a href="/services/">All services</a><a href="/services/traffic-engineering/">Traffic Engineering</a><a href="/services/road-safety-engineering/">Road Safety Engineering</a><a href="/services/public-transport-brt/">Public Transport / BRT</a></div><div><h3>Company</h3><a href="/about/">About</a><a href="/projects/">Projects</a><a href="/insights/">Insights</a><a href="/partner/">Partner with us</a><a href="/contact/">Contact</a></div></div><div class="container footbottom"><span>© {new Date().getFullYear()} ATRS Engineering Consultants Limited</span><span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span></div></footer>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="logo" href="/" aria-label="ATRS Engineering home">
+      <span class="logo-mark">A</span><span>ATRS<span class="logo-dot">.</span>ENG</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      {nav.map(([label,href])=><a href={href} class={Astro.url.pathname.startsWith(href as string)&&href!=='/'?'active':''}>{label}</a>)}
+    </nav>
+    <a class="nav-cta" href="/contact/">Request a proposal</a>
+    <details class="mobile-nav">
+      <summary aria-label="Open menu">Menu</summary>
+      <nav>
+        {nav.map(([label,href])=><a href={href}>{label}</a>)}
+        <a class="btn btn-gold" href="/contact/">Request a proposal</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main id="main"><slot/></main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <a class="logo logo-light" href="/"><span class="logo-mark">A</span><span>ATRS<span class="logo-dot">.</span>ENG</span></a>
+      <p class="footer-lead">Traffic engineering, road safety and mobility expertise for safer and better-connected communities.</p>
+      <p>{site.address}<br>{site.postal}</p>
+      <a href={'mailto:'+site.email}>{site.email}</a>
+    </div>
+    <div>
+      <h3>Services</h3>
+      <a href="/services/traffic-engineering/">Traffic Engineering</a>
+      <a href="/services/road-safety-engineering/">Road Safety Engineering</a>
+      <a href="/services/public-transport-brt/">Public Transport / BRT</a>
+      <a href="/services/data-surveys-analysis/">Data & Surveys</a>
+    </div>
+    <div>
+      <h3>Explore</h3>
+      <a href="/projects/">Projects</a>
+      <a href="/insights/">Insights</a>
+      <a href="/about/">About ATRS</a>
+      <a href="/partner/">Partner with us</a>
+      <a href="/contact/">Contact</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© {new Date().getFullYear()} ATRS Engineering Consultants Limited</span>
+    <span><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></span>
+  </div>
+</footer>
 </body>
 </html>
