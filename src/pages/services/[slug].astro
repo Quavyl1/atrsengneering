@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import {services,projects} from '../../data/content';
+import Icon from '../../components/Icon.astro';
 export function getStaticPaths(){return services.map(service=>({params:{slug:service.slug},props:{service}}))}
 const {service}=Astro.props;
 const related=projects.filter(p=>p.services.includes(service.slug));
